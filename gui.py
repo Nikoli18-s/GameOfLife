@@ -209,7 +209,7 @@ class GUI:
         shift_y = (self.graph_len - ny * cell_px) // 2
 
         _x = (x_px - shift_x) // cell_px
-        _y = (self.graph_len - y_px + shift_y) // cell_px
+        _y = (self.graph_len - y_px - shift_y) // cell_px
 
         if self.field.field[_y][_x] == 0:
             self.field.set(_x, _y)

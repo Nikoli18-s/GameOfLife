@@ -5,6 +5,9 @@ import time
 
 class GUI:
     def __init__(self):
+        # system
+        self.buff_size = 5000
+
         # colors
         self.theme_color = '#0c231e'
         self.first_color = '#008000'
@@ -148,14 +151,23 @@ class GUI:
     def enable_cell(self, cell_px, x, y, shift_x, shift_y):
         x_px = shift_x + x * cell_px
         y_px = shift_y + y * cell_px
-        self.window['GRAPH'].draw_rectangle((x_px + 1, y_px + cell_px - 1), (x_px + cell_px - 1, y_px + 1),
+        ids = self.window['GRAPH'].draw_rectangle((x_px + 1, y_px + cell_px - 1), (x_px + cell_px - 1, y_px + 1),
                                             fill_color=self.first_color, line_color=self.first_color, line_width=1)
+
+        if ids >= self.buff_size:
+            del_ID = ids - self.buff_size
+            self.window['GRAPH'].delete_figure(del_ID)
 
     def disable_cell(self, cell_px, x, y, shift_x, shift_y):
         x_px = shift_x + x * cell_px
         y_px = shift_y + y * cell_px
-        self.window['GRAPH'].draw_rectangle((x_px + 1, y_px + cell_px - 1), (x_px + cell_px - 1, y_px + 1),
+        ids = self.window['GRAPH'].draw_rectangle((x_px + 1, y_px + cell_px - 1), (x_px + cell_px - 1, y_px + 1),
                                             fill_color=self.second_color, line_color=self.second_color, line_width=1)
+
+        if ids >= self.buff_size:
+            del_ID = ids - self.buff_size
+            self.window['GRAPH'].delete_figure(del_ID)
+
 
     def draw_field(self):
         nx = self.field.width
